@@ -1,22 +1,19 @@
-import type { Metadata } from "next";
-import "./globals.css";
-
+import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: "URL Shortener",
-  description: "Short your URLs in a single click",
-};
+  title: 'URL Shortener',
+  description: 'Short your URLs in a single click',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
-  );
+  )
 }
