@@ -1,1 +1,79 @@
 @import 'tailwindcss';
+
+html[data-theme='light'] {
+  --color-background: hsl(0deg 0% 100%);
+  --color-primary: hsl(240deg 95% 62%);
+  --color-secondary: hsl(333deg 100% 45%);
+  --color-text-primary: hsl(222deg 22% 5%);
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-text-primary: var(--color-text-primary);
+  --font-inter: var(--font-inter);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter);
+  line-height: 1.5;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+/* Improve media defaults */
+canvas,
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts for form controls */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/*  Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Create a root stacking context */
+#root {
+  isolation: isolate;
+}
