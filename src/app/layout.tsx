@@ -21,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="light" className={inter.variable}>
-      <div id="root">
-        <body>{children}</body>
-      </div>
+      <body>
+        <div id="root">{children}</div>
+      </body>
     </html>
   )
 }
