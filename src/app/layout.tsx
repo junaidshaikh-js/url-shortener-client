@@ -22,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light" className={inter.variable}>
       <body>
-        <div id="root">{children}</div>
+        <main>
+          <div id="root">{children}</div>
+        </main>
       </body>
     </html>
   )

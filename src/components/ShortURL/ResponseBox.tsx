@@ -39,6 +39,7 @@ export default function ResponseBox({ shortUrl, longUrl }: ResponseBoxProps) {
         <p className="text-sm font-medium text-gray-500">{longUrl}</p>
       </div>
       <Tooltip
+        className="shrink-0"
         content={isUrlCopied ? 'Copied!' : 'Copy'}
         onMouseLeave={() => setIsUrlCopied(false)}
       >

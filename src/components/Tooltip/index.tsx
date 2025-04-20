@@ -34,6 +34,7 @@ const animateTooltipConfig = {
 
 export default function Tooltip({
   children,
+  className,
   content,
   onMouseLeave,
   position = 'top',
@@ -43,7 +44,7 @@ export default function Tooltip({
 
   return (
     <div
-      className="relative"
+      className={cn('relative', className)}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => {
         setShowTooltip(false)
