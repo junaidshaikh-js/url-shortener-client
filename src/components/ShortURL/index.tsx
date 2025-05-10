@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from 'react'
 
+import shortenUrl from '@/api/shortenUrl'
 import Button from '../Button'
 import TextInput from '../form/TextInput'
 import ResponseBox from './ResponseBox'
@@ -23,16 +24,7 @@ export default function ShortUrl() {
 
     try {
       new URL(url)
-      // Simulate a network request to shorten the URL
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(true)
-        }, 2000)
-      })
-      return {
-        longUrl: url,
-        shortUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/asdf`,
-      }
+      return await shortenUrl(url)
     } catch {
       return {
         error: 'Invalid URL',
