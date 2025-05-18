@@ -1,8 +1,10 @@
+'use client'
+
 import { motion, HTMLMotionProps } from 'motion/react'
 
 import { cn } from '@/libs/utils'
 
-type Variant = 'none' | 'primary'
+type Variant = 'none' | 'primary' | 'secondary'
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: Variant
@@ -21,6 +23,7 @@ export default function Button({
   const variantMap = {
     none: '',
     primary: 'bg-primary text-white',
+    secondary: 'bg-secondary text-white',
   }
 
   return (

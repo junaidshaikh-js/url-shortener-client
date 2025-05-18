@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
 
 import useKey from '@/hooks/useKey'
-import { DOM_MAIN } from '@/constants'
 
 interface ModalProps {
   children: React.ReactNode
@@ -30,7 +29,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
           />
           <motion.div
             animate={{ opacity: 1, scale: 1 }}
-            className="z-10 mx-4 max-h-[95dvh] max-w-[600px] overflow-auto rounded-lg bg-white p-4"
+            className="z-10 mx-4 max-h-[95dvh] max-w-[600px] overflow-auto rounded-lg bg-white p-4 md:mx-0"
             initial={{ opacity: 0, scale: 0 }}
             transition={{ duration: 0.2 }}
           >
@@ -39,6 +38,6 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
         </div>
       </RemoveScroll>
     </FocusLock>,
-    document.getElementById(DOM_MAIN) as HTMLElement
+    document.body
   )
 }
