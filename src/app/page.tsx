@@ -5,7 +5,10 @@ import ShortUrl from '@/components/ShortURL'
 
 export default function Home() {
   return (
-    <Container renderAs="section" className="flex min-h-dvh items-center">
+    <Container
+      renderAs="section"
+      className="flex min-h-[calc(100dvh-160px)] items-center"
+    >
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         transition={{
