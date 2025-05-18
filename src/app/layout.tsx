@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
+import { DOM_MAIN } from '@/constants'
 import './globals.css'
 
 const inter = Inter({
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light" className={inter.variable}>
       <body>
-        <main>
+        <main id={DOM_MAIN}>
           <div id="root">{children}</div>
         </main>
       </body>
