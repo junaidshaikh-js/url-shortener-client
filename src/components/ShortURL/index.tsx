@@ -56,7 +56,7 @@ export default function ShortUrl() {
           <TextInput
             className="w-full placeholder:font-medium"
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Enter your really large URL..."
+            placeholder="Enter your really long URL..."
             ref={inputRef}
             value={url}
           />
