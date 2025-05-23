@@ -9,5 +9,5 @@ export async function GET(
   const { shortCode } = await params
   const res = await fetchShortenerApi(`/url/${shortCode}`)
 
-  permanentRedirect(res.error ? '/' : res.longUrl)
+  permanentRedirect(res.error ? '/' : res.data.longUrl)
 }

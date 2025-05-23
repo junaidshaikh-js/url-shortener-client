@@ -3,10 +3,10 @@ export default async function fetchShortenerApi(
   method?: 'GET' | 'POST',
   body?: Record<string, unknown>
 ) {
-  console.log(body)
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_URL_SHORTENER_API}${path}`,
     {
+      credentials: 'include',
       method: method ?? 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -18,9 +18,13 @@ export default async function fetchShortenerApi(
 
   if (!json.ok) {
     return {
+      status: res.status,
       error: json.error,
     }
   }
 
-  return json.data
+  return {
+    ok: res.ok,
+    data: json.data,
+  }
 }
