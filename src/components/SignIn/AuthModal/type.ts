@@ -8,9 +8,19 @@ export interface AuthModalProps {
 }
 
 export interface SignInFormProps {
+  setError: Dispatch<SetStateAction<string>>
   updateView: (view: AuthModalView) => void
 }
 
 export interface SignUpFormProps {
+  setError: Dispatch<SetStateAction<string>>
   updateView: (view: AuthModalView) => void
 }
+
+export type SignUpFormData = {
+  email: string
+  name: string
+  password: string
+}
+
+export type SignInFormData = Pick<SignUpFormData, 'email' | 'password'>

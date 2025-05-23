@@ -7,9 +7,11 @@ import SignUpForm from './SignUpForm'
 
 export default function AuthModal({ isOpen, setIsOpen }: AuthModalProps) {
   const [view, setView] = useState<AuthModalView>('signIn')
+  const [error, setError] = useState('')
 
   const updateView = (newView: AuthModalView) => {
     setView(newView)
+    setError('')
   }
 
   const handleOnClose = () => {
@@ -20,9 +22,9 @@ export default function AuthModal({ isOpen, setIsOpen }: AuthModalProps) {
   const getView = () => {
     switch (view) {
       case 'signIn':
-        return <SignInForm updateView={updateView} />
+        return <SignInForm updateView={updateView} setError={setError} />
       case 'signUp':
-        return <SignUpForm updateView={updateView} />
+        return <SignUpForm updateView={updateView} setError={setError} />
       default:
         return null
     }
@@ -30,7 +32,14 @@ export default function AuthModal({ isOpen, setIsOpen }: AuthModalProps) {
 
   return (
     <Modal isOpen={isOpen} onClose={handleOnClose}>
-      {getView()}
+      <div className="flex flex-col gap-4">
+        {getView()}
+        {error ? (
+          <div className="bg-error rounded-lg p-4">
+            <p className="text-center font-semibold text-white">{error}</p>
+          </div>
+        ) : null}
+      </div>
     </Modal>
   )
 }

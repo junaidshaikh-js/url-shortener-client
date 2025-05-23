@@ -5,6 +5,7 @@ html[data-theme='light'] {
   --color-primary: hsl(240deg 95% 62%);
   --color-secondary: hsl(333deg 100% 45%);
   --color-text-primary: hsl(222deg 22% 5%);
+  --color-error: hsl(340deg 95% 60%);
 }
 
 @theme inline {
@@ -12,6 +13,7 @@ html[data-theme='light'] {
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
   --color-text-primary: var(--color-text-primary);
+  --color-error: var(--color-error);
   --font-inter: var(--font-inter);
 }
 

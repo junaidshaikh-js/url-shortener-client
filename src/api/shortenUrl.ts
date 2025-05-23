@@ -10,7 +10,7 @@ export default async function shortenUrl(url: string) {
     }
   }
   return {
-    longUrl: res.longUrl,
-    shortUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/${res.shortCode}`,
+    longUrl: res.data.longUrl,
+    shortUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/${res.data.shortCode}`,
   }
 }

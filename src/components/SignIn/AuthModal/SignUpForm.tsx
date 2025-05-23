@@ -1,12 +1,48 @@
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import Button from '@/components/Button'
+import fetchShortenerApi from '@/api/fetchShortenerApi'
 import TextInput from '@/components/form/TextInput'
-import type { SignUpFormProps } from './type'
+import type { SignUpFormData, SignUpFormProps } from './type'
 
-export default function SignUpForm({ updateView }: SignUpFormProps) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
+  const [formData, setFormData] = useState<SignUpFormData>({
+    email: '',
+    name: '',
+    password: '',
+  })
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const updateFormData = (updatedData: Partial<SignUpFormData>) => {
+    setFormData({ ...formData, ...updatedData })
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
+    try {
+      const res = await fetchShortenerApi('/signup', 'POST', formData)
+      console.log({ res })
+      // account already exists
+      if (res.status === 403) {
+        updateView('signIn')
+        return
+      }
+      if (res.error) {
+        setError(res.error)
+        return
+      }
+      if (res.ok) {
+        router.push('/account/dashboard')
+      }
+    } catch {
+      setError('An error occurred while signing up. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -17,32 +53,45 @@ export default function SignUpForm({ updateView }: SignUpFormProps) {
         onSubmit={handleSubmit}
       >
         <TextInput
+          autoComplete="name"
           className="w-full rounded border border-gray-300 p-2"
+          disabled={loading}
           label="Name"
           labelClassName="sr-only"
+          onChange={(e) => updateFormData({ name: e.target.value })}
           placeholder="Name"
           required
           type="text"
         />
         <TextInput
+          autoComplete="email"
           className="w-full rounded border border-gray-300 p-2"
+          disabled={loading}
           label="Email"
           labelClassName="sr-only"
+          onChange={(e) => updateFormData({ email: e.target.value })}
           placeholder="Email"
           required
           type="email"
         />
         <TextInput
+          autoComplete="new-password"
           className="w-full rounded border border-gray-300 p-2"
+          disabled={loading}
           label="Password"
           labelClassName="sr-only"
           minLength={8}
+          onChange={(e) => updateFormData({ password: e.target.value })}
           placeholder="Password"
           required
           type="password"
         />
-
-        <Button type="submit" variant="primary" className="font-medium">
+        <Button
+          className="font-medium"
+          disabled={loading}
+          type="submit"
+          variant="primary"
+        >
           Get Started
         </Button>
         <button
