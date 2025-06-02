@@ -1,8 +1,9 @@
 import fetchShortenerApi from './fetchShortenerApi'
 
 export default async function shortenUrl(url: string) {
-  const res = await fetchShortenerApi('/url/shorten', 'POST', {
-    url,
+  const res = await fetchShortenerApi('/url/shorten', {
+    body: { url },
+    method: 'POST',
   })
   if (res.error) {
     return {

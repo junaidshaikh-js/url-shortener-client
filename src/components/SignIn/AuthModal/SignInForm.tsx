@@ -23,7 +23,10 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetchShortenerApi('/signin', 'POST', formData)
+      const res = await fetchShortenerApi('/signin', {
+        body: formData,
+        method: 'POST',
+      })
       // account does not exist
       if (res.status === 404) {
         updateView('signUp')
@@ -35,6 +38,7 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
       }
       if (res.ok) {
         router.push('/account/dashboard')
+        router.refresh()
       }
     } catch {
       setError('An error occurred while signing in. Please try again.')

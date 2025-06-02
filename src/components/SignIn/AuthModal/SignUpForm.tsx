@@ -24,7 +24,10 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetchShortenerApi('/signup', 'POST', formData)
+      const res = await fetchShortenerApi('/signup', {
+        body: formData,
+        method: 'POST',
+      })
       console.log({ res })
       // account already exists
       if (res.status === 403) {
@@ -37,6 +40,7 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
       }
       if (res.ok) {
         router.push('/account/dashboard')
+        router.refresh()
       }
     } catch {
       setError('An error occurred while signing up. Please try again.')
