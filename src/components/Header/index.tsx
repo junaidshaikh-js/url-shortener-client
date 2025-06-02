@@ -1,16 +1,17 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { use } from 'react'
 
+import { AuthContext } from '@/context/Auth/Client'
 import SignIn from '../SignIn'
+import UserMenu from './UserMenu'
 
 export default function Header() {
-  const pathname = usePathname()
+  const { user } = use(AuthContext)
 
   return (
     <header className="fixed top-0 right-0 left-0 flex min-h-20 justify-end bg-white p-4 shadow-md">
-      {/* temporary, will be rendered conditionally based on user auth state in upcoming PR */}
-      {pathname === '/' ? <SignIn /> : <span>User</span>}
+      {user ? <UserMenu /> : <SignIn />}
     </header>
   )
 }

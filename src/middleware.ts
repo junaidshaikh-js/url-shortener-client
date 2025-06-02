@@ -17,6 +17,7 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
+  response.headers.set('x-path', pathname)
   return response
 }
 

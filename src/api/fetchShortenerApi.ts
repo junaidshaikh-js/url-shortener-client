@@ -1,19 +1,26 @@
+type Options = {
+  body?: Record<string, unknown>
+  headers?: Record<string, unknown>
+  method?: 'GET' | 'POST'
+}
+
+const API_URL = process.env.NEXT_PUBLIC_URL_SHORTENER_API!
+
 export default async function fetchShortenerApi(
   path: string,
-  method?: 'GET' | 'POST',
-  body?: Record<string, unknown>
+  options: Options = {}
 ) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SHORTENER_API}${path}`,
-    {
-      credentials: 'include',
-      method: method ?? 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      ...(body ? { body: JSON.stringify(body) } : {}),
-    }
-  )
+  const { method, body, headers } = options
+
+  const res = await fetch(`${API_URL}${path}`, {
+    credentials: 'include',
+    method: method ?? 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      ...headers,
+    },
+    ...(body ? { body: JSON.stringify(body) } : {}),
+  })
   const json = await res.json()
 
   if (!json.ok) {

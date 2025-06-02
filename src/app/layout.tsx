@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
+import AuthProvider from '@/context/Auth'
 import Header from '@/components/Header'
 import './globals.css'
 
@@ -22,12 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="light" className={inter.variable}>
-      <body>
-        <div id="root">
-          <Header />
-          <main className="pt-20">{children}</main>
-        </div>
-      </body>
+      <AuthProvider>
+        <body>
+          <div id="root">
+            <Header />
+            <main className="pt-20">{children}</main>
+          </div>
+        </body>
+      </AuthProvider>
     </html>
   )
 }

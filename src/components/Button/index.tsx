@@ -30,7 +30,6 @@ export default function Button({
     <motion.button
       className={cn(baseClass, variantMap[variant], className)}
       type={type}
-      whileTap={{ scale: 0.95 }}
       {...delegated}
     >
       {children}
