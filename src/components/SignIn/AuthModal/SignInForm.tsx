@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import Button from '@/components/Button'
@@ -13,7 +12,6 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
     password: '',
   })
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const updateFormData = (updatedData: Partial<SignInFormData>) => {
     setFormDate({ ...formData, ...updatedData })
@@ -37,8 +35,7 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
         return
       }
       if (res.ok) {
-        router.push('/account/dashboard')
-        router.refresh()
+        window.location.href = '/account/dashboard'
       }
     } catch {
       setError('An error occurred while signing in. Please try again.')
