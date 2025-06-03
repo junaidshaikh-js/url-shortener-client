@@ -2,7 +2,6 @@
 
 import { motion } from 'motion/react'
 import { use, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 import fetchShortenerApi from '@/api/fetchShortenerApi'
 import useClickAway from '@/hooks/useClickAway'
@@ -12,7 +11,6 @@ import ChevronDown from '../icons/ChevronDown'
 
 export default function UserMenu() {
   const [showMenu, setShowMenu] = useState(false)
-  const router = useRouter()
 
   const menuRef = useClickAway<HTMLDivElement>(() => {
     if (showMenu) setShowMenu(false)
@@ -27,7 +25,7 @@ export default function UserMenu() {
         method: 'POST',
       })
       if (res.ok) {
-        router.refresh()
+        window.location.href = '/'
       }
     } catch {
       console.log('Error logging out')
