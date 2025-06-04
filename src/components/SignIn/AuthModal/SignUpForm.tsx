@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import Cookies from 'js-cookie'
 
 import Button from '@/components/Button'
 import fetchShortenerApi from '@/api/fetchShortenerApi'
 import TextInput from '@/components/form/TextInput'
+import { AUTH_TOKEN } from '@/constants'
 import type { SignUpFormData, SignUpFormProps } from './type'
 
 export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
@@ -37,6 +39,10 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
         return
       }
       if (res.ok) {
+        const { token } = res.data
+        Cookies.set(AUTH_TOKEN, token, {
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        })
         window.location.href = '/account/dashboard'
       }
     } catch {
