@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import Cookies from 'js-cookie'
 
 import Button from '@/components/Button'
 import fetchShortenerApi from '@/api/fetchShortenerApi'
 import TextInput from '@/components/form/TextInput'
+import { AUTH_TOKEN } from '@/constants'
 import type { SignInFormData, SignInFormProps } from './type'
 
 export default function SignInForm({ updateView, setError }: SignInFormProps) {
@@ -35,6 +37,10 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
         return
       }
       if (res.ok) {
+        const { token } = res.data
+        Cookies.set(AUTH_TOKEN, token, {
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        })
         window.location.href = '/account/dashboard'
       }
     } catch {

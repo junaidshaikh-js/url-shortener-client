@@ -2,9 +2,11 @@
 
 import { motion } from 'motion/react'
 import { use, useState } from 'react'
+import Cookies from 'js-cookie'
 
 import fetchShortenerApi from '@/api/fetchShortenerApi'
 import useClickAway from '@/hooks/useClickAway'
+import { AUTH_TOKEN } from '@/constants'
 import { AuthContext } from '@/context/Auth/Client'
 import Button from '../Button'
 import ChevronDown from '../icons/ChevronDown'
@@ -25,6 +27,7 @@ export default function UserMenu() {
         method: 'POST',
       })
       if (res.ok) {
+        Cookies.remove(AUTH_TOKEN)
         window.location.href = '/'
       }
     } catch {

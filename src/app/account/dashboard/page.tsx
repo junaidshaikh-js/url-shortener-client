@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description: '',
+  title: 'Dashboard',
+}
+
 export default function Dashboard() {
   return (
     <div>
