@@ -23,6 +23,7 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-inter);
   line-height: 1.5;
+  letter-spacing: 0.5px;
 }
 
 /* 3. Enable keyword animations */
