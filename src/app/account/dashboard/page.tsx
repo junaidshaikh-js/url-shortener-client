@@ -1,14 +1,10 @@
 import type { Metadata } from 'next'
 
+import Dashboard from '@/components/pages/Dashboard'
+
 export const metadata: Metadata = {
   description: '',
   title: 'Dashboard',
 }
 
-export default function Dashboard() {
-  return (
-    <div>
-      <h1 className="mt-10 text-center text-3xl font-bold">Dashboard</h1>
-    </div>
-  )
-}
+export default Dashboard
