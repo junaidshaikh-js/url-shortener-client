@@ -1,9 +1,14 @@
+import { getToken } from '@/libs/utils'
 import fetchShortenerApi from './fetchShortenerApi'
 
 export default async function shortenUrl(url: string) {
+  const token = getToken()
+  const headers = token ? { authorization: token } : {}
+
   const res = await fetchShortenerApi('/url/shorten', {
     body: { url },
     method: 'POST',
+    headers,
   })
   if (res.error) {
     return {
