@@ -7,7 +7,11 @@ import Button from '../Button'
 import TextInput from '../form/TextInput'
 import ResponseBox from './ResponseBox'
 
-export default function ShortUrl() {
+interface ShortUrlProps {
+  onSuccess?: VoidFunction
+}
+
+export default function ShortUrl({ onSuccess }: ShortUrlProps) {
   const [url, setUrl] = useState('')
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -24,7 +28,14 @@ export default function ShortUrl() {
 
     try {
       new URL(url)
-      return await shortenUrl(url)
+      const shortenedUrl = await shortenUrl(url)
+      if (shortenedUrl.error) {
+        return {
+          error: shortenedUrl.error,
+        }
+      }
+      onSuccess?.()
+      return shortenedUrl
     } catch {
       return {
         error: 'Invalid URL',
