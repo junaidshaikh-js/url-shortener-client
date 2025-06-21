@@ -1,3 +1,5 @@
+'use server'
+
 import { getToken } from '@/libs/server.utils'
 import { User } from '@/context/Auth/Client'
 import fetchShortenerApi from './fetchShortenerApi'
