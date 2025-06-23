@@ -4,10 +4,19 @@ import { motion, HTMLMotionProps } from 'motion/react'
 
 import { cn } from '@/libs/utils'
 
-type Variant = 'none' | 'primary' | 'secondary'
+export type Variant = 'none' | 'primary' | 'secondary'
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: Variant
+}
+
+export const baseClass =
+  'px-4 py-2 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 transition-colors duration-200 ease-in-out'
+
+export const variantMap = {
+  none: '',
+  primary: 'bg-primary text-white',
+  secondary: 'bg-secondary text-white',
 }
 
 export default function Button({
@@ -17,15 +26,6 @@ export default function Button({
   variant = 'none',
   ...delegated
 }: ButtonProps) {
-  const baseClass =
-    'px-4 py-2 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 transition-colors duration-200 ease-in-out'
-
-  const variantMap = {
-    none: '',
-    primary: 'bg-primary text-white',
-    secondary: 'bg-secondary text-white',
-  }
-
   return (
     <motion.button
       className={cn(baseClass, variantMap[variant], className)}

@@ -12,7 +12,7 @@ export default function Dashboard() {
           <LinkShowcase />
         </div>
         <div className="fixed right-0 bottom-0 left-0 flex w-full justify-center bg-white py-4 md:static md:mt-2 md:py-0">
-          <div className="top-[100px] h-fit w-full md:sticky">
+          <div className="top-[100px] flex h-fit w-full justify-center md:sticky">
             <CreateNew />
           </div>
         </div>
