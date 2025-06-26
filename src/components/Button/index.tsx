@@ -11,7 +11,7 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
 }
 
 export const baseClass =
-  'px-4 py-2 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 transition-colors duration-200 ease-in-out'
+  'px-4 py-2 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200 ease-in-out'
 
 export const variantMap = {
   none: '',

@@ -4,7 +4,9 @@ import Cookies from 'js-cookie'
 
 import Button from '@/components/Button'
 import fetchShortenerApi from '@/api/fetchShortenerApi'
+import Spinner from '@/components/Spinner'
 import TextInput from '@/components/form/TextInput'
+import useRouterWithTransition from '@/hooks/useRouterWithTransition'
 import { AUTH_TOKEN } from '@/constants'
 import type { SignUpFormData, SignUpFormProps } from './type'
 
@@ -15,6 +17,7 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
     password: '',
   })
   const [loading, setLoading] = useState(false)
+  const { isPending, routeTo, refresh } = useRouterWithTransition()
 
   const updateFormData = (updatedData: Partial<SignUpFormData>) => {
     setFormData({ ...formData, ...updatedData })
@@ -24,11 +27,10 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetchShortenerApi('/signup', {
+      const res = await fetchShortenerApi('/auth/sign-up', {
         body: formData,
         method: 'POST',
       })
-      console.log({ res })
       // account already exists
       if (res.status === 403) {
         updateView('signIn')
@@ -43,7 +45,8 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
         Cookies.set(AUTH_TOKEN, token, {
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         })
-        window.location.href = '/account/dashboard'
+        routeTo('/account/dashboard')
+        refresh()
       }
     } catch {
       setError('An error occurred while signing up. Please try again.')
@@ -51,6 +54,8 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
       setLoading(false)
     }
   }
+
+  const isLoading = loading || isPending
 
   return (
     <motion.div>
@@ -62,7 +67,7 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
         <TextInput
           autoComplete="name"
           className="w-full rounded border border-gray-300 p-2"
-          disabled={loading}
+          disabled={isLoading}
           label="Name"
           labelClassName="sr-only"
           onChange={(e) => updateFormData({ name: e.target.value })}
@@ -73,7 +78,7 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
         <TextInput
           autoComplete="email"
           className="w-full rounded border border-gray-300 p-2"
-          disabled={loading}
+          disabled={isLoading}
           label="Email"
           labelClassName="sr-only"
           onChange={(e) => updateFormData({ email: e.target.value })}
@@ -84,7 +89,7 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
         <TextInput
           autoComplete="new-password"
           className="w-full rounded border border-gray-300 p-2"
-          disabled={loading}
+          disabled={isLoading}
           label="Password"
           labelClassName="sr-only"
           minLength={8}
@@ -94,20 +99,22 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
           type="password"
         />
         <Button
-          className="font-medium"
-          disabled={loading}
+          className="flex items-center justify-center gap-2 font-medium"
+          disabled={isLoading}
           type="submit"
           variant="primary"
         >
+          {isLoading && <Spinner />}
           Get Started
         </Button>
-        <button
-          className="text-secondary mx-auto w-fit hover:underline"
+        <Button
+          className="text-secondary mx-auto w-fit p-0 hover:underline"
+          disabled={isLoading}
           onClick={() => updateView('signIn')}
           type="button"
         >
           {'Already have an account? Sign In >'}
-        </button>
+        </Button>
       </form>
     </motion.div>
   )

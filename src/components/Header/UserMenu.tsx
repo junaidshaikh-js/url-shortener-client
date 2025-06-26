@@ -6,13 +6,16 @@ import Cookies from 'js-cookie'
 
 import fetchShortenerApi from '@/api/fetchShortenerApi'
 import useClickAway from '@/hooks/useClickAway'
+import useRouterWithTransition from '@/hooks/useRouterWithTransition'
 import { AUTH_TOKEN } from '@/constants'
 import { AuthContext } from '@/context/Auth/Client'
 import Button from '../Button'
 import ChevronDown from '../icons/ChevronDown'
+import Spinner from '../Spinner'
 
 export default function UserMenu() {
   const [showMenu, setShowMenu] = useState(false)
+  const { isPending, routeTo, refresh } = useRouterWithTransition()
 
   const menuRef = useClickAway<HTMLDivElement>(() => {
     if (showMenu) setShowMenu(false)
@@ -23,14 +26,16 @@ export default function UserMenu() {
 
   const handleLogOut = async () => {
     try {
-      const res = await fetchShortenerApi('/signout', {
+      const res = await fetchShortenerApi('/auth/sign-out', {
         method: 'POST',
       })
       if (res.ok) {
         Cookies.remove(AUTH_TOKEN)
-        window.location.href = '/'
+        routeTo('/')
+        refresh()
       }
     } catch {
+      // TODO: show error toast
       console.log('Error logging out')
     }
   }
@@ -64,8 +69,13 @@ export default function UserMenu() {
             }}
           >
             <li>
-              <Button className="w-full px-0" onClick={handleLogOut}>
-                Logout
+              <Button
+                className="flex w-full items-center justify-center gap-2 px-0"
+                onClick={handleLogOut}
+                disabled={isPending}
+              >
+                {isPending && <Spinner />}
+                <span>Logout</span>
               </Button>
             </li>
           </motion.ul>
