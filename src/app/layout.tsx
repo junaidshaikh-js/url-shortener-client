@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import AuthProvider from '@/context/Auth'
-import Header from '@/components/Header'
 import './globals.css'
 
 const inter = Inter({
@@ -25,10 +24,7 @@ export default function RootLayout({
     <html lang="en" data-theme="light" className={inter.variable}>
       <AuthProvider>
         <body>
-          <div id="root">
-            <Header />
-            <main className="pt-24">{children}</main>
-          </div>
+          <div id="root">{children}</div>
         </body>
       </AuthProvider>
     </html>
