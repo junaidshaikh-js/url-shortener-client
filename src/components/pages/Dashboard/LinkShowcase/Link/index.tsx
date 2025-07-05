@@ -19,7 +19,9 @@ export default function Link({ link }: LinkProps) {
         >
           {shortUrl}
         </a>
-        <p className="text-sm font-medium text-gray-500">{longUrl}</p>
+        <p className="text-sm font-medium !wrap-anywhere text-gray-500">
+          {longUrl}
+        </p>
       </div>
       <Copy shortUrl={shortUrl} />
     </div>
