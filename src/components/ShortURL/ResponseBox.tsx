@@ -36,7 +36,7 @@ export default function ResponseBox({ shortUrl, longUrl }: ResponseBoxProps) {
         >
           {shortUrl}
         </a>
-        <p className="text-sm font-medium wrap-anywhere text-gray-500">
+        <p className="text-sm font-medium !wrap-anywhere text-gray-500">
           {longUrl}
         </p>
       </div>

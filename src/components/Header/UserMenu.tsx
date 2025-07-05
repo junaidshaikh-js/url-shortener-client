@@ -9,6 +9,8 @@ import useClickAway from '@/hooks/useClickAway'
 import useRouterWithTransition from '@/hooks/useRouterWithTransition'
 import { AUTH_TOKEN } from '@/constants'
 import { AuthContext } from '@/context/Auth/Client'
+import { createErrorToast } from '@/libs/utils'
+import { useToast } from '@/context/Toast'
 import Button from '../Button'
 import ChevronDown from '../icons/ChevronDown'
 import Spinner from '../Spinner'
@@ -16,6 +18,7 @@ import Spinner from '../Spinner'
 export default function UserMenu() {
   const [showMenu, setShowMenu] = useState(false)
   const { isPending, routeTo, refresh } = useRouterWithTransition()
+  const { addToast } = useToast()
 
   const menuRef = useClickAway<HTMLDivElement>(() => {
     if (showMenu) setShowMenu(false)
@@ -35,8 +38,7 @@ export default function UserMenu() {
         refresh()
       }
     } catch {
-      // TODO: show error toast
-      console.log('Error logging out')
+      addToast(createErrorToast('Error logging out'))
     }
   }
 

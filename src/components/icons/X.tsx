@@ -1,6 +1,6 @@
 import { IconProps } from './type'
 
-export default function ChevronDown({ size = 24 }: IconProps) {
+export default function X({ size = 24 }: IconProps) {
   return (
     <svg
       fill="none"
@@ -13,7 +13,8 @@ export default function ChevronDown({ size = 24 }: IconProps) {
       width={size}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <polyline points="6 9 12 15 18 9"></polyline>
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>
   )
 }

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import AuthProvider from '@/context/Auth'
+import ToastContainer from '@/components/ToastContainer'
+import ToastProvider from '@/context/Toast'
 import './globals.css'
 
 const inter = Inter({
@@ -22,11 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="light" className={inter.variable}>
-      <AuthProvider>
-        <body>
-          <div id="root">{children}</div>
-        </body>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <body>
+            <div id="root">{children}</div>
+            <ToastContainer />
+          </body>
+        </AuthProvider>
+      </ToastProvider>
     </html>
   )
 }

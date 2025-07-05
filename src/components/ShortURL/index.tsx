@@ -3,9 +3,11 @@
 import { useActionState, useEffect, useRef, useState } from 'react'
 
 import shortenUrl from '@/api/shortenUrl'
+import { createSuccessToast } from '@/libs/utils'
+import { useToast } from '@/context/Toast'
 import Button from '../Button'
-import TextInput from '../form/TextInput'
 import ResponseBox from './ResponseBox'
+import TextInput from '../form/TextInput'
 
 interface ShortUrlProps {
   onSuccess?: VoidFunction
@@ -19,6 +21,7 @@ export default function ShortUrl({ onSuccess }: ShortUrlProps) {
     longUrl: '',
     shortUrl: '',
   })
+  const { addToast } = useToast()
 
   const [state, submitAction, isPending] = useActionState(async () => {
     if (!url)
@@ -57,8 +60,9 @@ export default function ShortUrl({ onSuccess }: ShortUrlProps) {
         shortUrl: state.shortUrl,
       })
       setUrl('')
+      addToast(createSuccessToast('Short URL created'))
     }
-  }, [state])
+  }, [state, addToast])
 
   return (
     <div className="mx-auto w-full max-w-[600px]">
