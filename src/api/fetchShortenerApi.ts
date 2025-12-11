@@ -1,7 +1,7 @@
 type Options = {
   body?: Record<string, unknown>
   headers?: Record<string, unknown>
-  method?: 'GET' | 'POST'
+  method?: 'GET' | 'POST' | 'DELETE'
 }
 
 const API_URL = process.env.NEXT_PUBLIC_URL_SHORTENER_API!

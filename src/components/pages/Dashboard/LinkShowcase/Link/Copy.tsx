@@ -16,7 +16,7 @@ export default function Copy({ shortUrl }: { shortUrl: string }) {
 
   return (
     <Button
-      className="w-fit font-medium uppercase"
+      className="w-fit min-w-[120px] text-sm font-medium uppercase md:text-base"
       onClick={handleCopyClick}
       variant="secondary"
     >
