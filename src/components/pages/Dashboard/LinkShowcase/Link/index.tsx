@@ -1,4 +1,6 @@
 import type { Link } from '@/types'
+
+import ActionButtons from './ActionButtons'
 import Copy from './Copy'
 
 interface LinkProps {
@@ -6,7 +8,7 @@ interface LinkProps {
 }
 
 export default function Link({ link }: LinkProps) {
-  const { shortCode, longUrl } = link
+  const { id, shortCode, longUrl } = link
   const shortUrl = `${process.env.NEXT_PUBLIC_HOSTNAME}/${shortCode}`
 
   return (
@@ -23,7 +25,10 @@ export default function Link({ link }: LinkProps) {
           {longUrl}
         </p>
       </div>
-      <Copy shortUrl={shortUrl} />
+      <div className="flex justify-between gap-5 md:flex-col md:items-end">
+        <Copy shortUrl={shortUrl} />
+        <ActionButtons linkId={id} />
+      </div>
     </div>
   )
 }
