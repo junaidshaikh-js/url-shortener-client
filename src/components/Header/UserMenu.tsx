@@ -11,8 +11,10 @@ import { AUTH_TOKEN } from '@/constants'
 import { AuthContext } from '@/context/Auth/Client'
 import { createErrorToast } from '@/libs/utils'
 import { useToast } from '@/context/Toast'
+
 import Button from '../Button'
 import ChevronDown from '../icons/ChevronDown'
+import Link from '../Link'
 import Spinner from '../Spinner'
 
 export default function UserMenu() {
@@ -63,13 +65,21 @@ export default function UserMenu() {
           }}
         >
           <motion.ul
-            className="flex flex-col gap-2 font-semibold"
+            className="flex flex-col gap-4 py-2 font-semibold"
             initial={{ opacity: 0 }}
             transition={{ delay: 0.1 }}
             animate={{
               opacity: 1,
             }}
           >
+            <li>
+              <Link
+                className="flex items-center justify-center gap-2"
+                href="/account/trash"
+              >
+                Trash
+              </Link>
+            </li>
             <li>
               <Button
                 className="flex w-full items-center justify-center gap-2 px-0"
