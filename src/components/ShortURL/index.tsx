@@ -15,54 +15,46 @@ interface ShortUrlProps {
 
 export default function ShortUrl({ onSuccess }: ShortUrlProps) {
   const [url, setUrl] = useState('')
-  const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [response, setResponse] = useState({
-    longUrl: '',
-    shortUrl: '',
-  })
   const { addToast } = useToast()
 
   const [state, submitAction, isPending] = useActionState(async () => {
-    if (!url)
+    if (!url) {
+      inputRef.current?.focus()
       return {
         error: 'Please enter a URL',
       }
+    }
 
     try {
       new URL(url)
       const shortenedUrl = await shortenUrl(url)
+
       if (shortenedUrl.error) {
+        inputRef.current?.focus()
         return {
           error: shortenedUrl.error,
         }
       }
+
       onSuccess?.()
+      setUrl('')
+      addToast(createSuccessToast('Short URL created'))
+
       return shortenedUrl
     } catch {
+      inputRef.current?.focus()
       return {
         error: 'Invalid URL',
       }
     }
   }, null)
 
-  useEffect(() => {
-    if (!state) return
-
-    setError(state.error || null)
-    if (state.error) {
-      inputRef.current?.focus()
-    }
-
-    if (state.shortUrl) {
-      setResponse({
-        longUrl: state.longUrl,
-        shortUrl: state.shortUrl,
-      })
-      setUrl('')
-      addToast(createSuccessToast('Short URL created'))
-    }
-  }, [state, addToast])
+  const error = state?.error
+  const response = {
+    longUrl: state?.longUrl ?? '',
+    shortUrl: state?.shortUrl ?? '',
+  }
 
   return (
     <div className="mx-auto w-full max-w-[600px]">
