@@ -22,6 +22,7 @@ html[data-theme='light'] {
   --color-text-primary: hsl(222deg 22% 5%);
   --color-error: hsl(340deg 95% 60%);
   --color-success: hsl(145deg 100% 25%);
+  --color-info: hsl(220deg 70% 91%);
 }
 
 @theme inline {
@@ -44,6 +45,7 @@ html[data-theme='light'] {
   --font-inter: var(--font-inter);
 
   --color-success: var(--color-success);
+  --color-info: var(--color-info);
 }
 
 body {

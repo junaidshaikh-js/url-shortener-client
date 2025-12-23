@@ -16,10 +16,13 @@ interface TrashedLinkProps {
 }
 
 export default function TrashedLink({ link }: TrashedLinkProps) {
+  const shortUrl = `${process.env.NEXT_PUBLIC_HOSTNAME}/${link.shortCode}`
+
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+
   const router = useRouter()
   const { addToast } = useToast()
-  const shortUrl = `${process.env.NEXT_PUBLIC_HOSTNAME}/${link.shortCode}`
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
   async function handleRestore() {
     try {
@@ -38,6 +41,7 @@ export default function TrashedLink({ link }: TrashedLinkProps) {
   }
 
   async function handleDelete() {
+    setIsDeleting(true)
     try {
       const res = await deleteLinkPermanently(link.id)
       if (res.error) {
@@ -45,6 +49,7 @@ export default function TrashedLink({ link }: TrashedLinkProps) {
       }
       if (res.success) {
         addToast(createSuccessToast('Link deleted'))
+        setIsDeleting(false)
       }
     } catch {
       addToast(createErrorToast('Failed to delete link'))
@@ -73,6 +78,7 @@ export default function TrashedLink({ link }: TrashedLinkProps) {
         </Button>
       </div>
       <ConfirmationModal
+        asyncOperation={isDeleting}
         confirmLabel="Delete forever"
         description="Link will be deleted permanently. This can't be undone."
         isOpen={isConfirmOpen}
