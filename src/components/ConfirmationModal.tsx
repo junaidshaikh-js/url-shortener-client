@@ -6,6 +6,7 @@ import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 
 interface ConfirmationModalProps {
+  asyncOperation?: boolean
   cancelLabel?: string
   confirmLabel?: string
   description: ReactNode
@@ -16,6 +17,7 @@ interface ConfirmationModalProps {
 }
 
 export default function ConfirmationModal({
+  asyncOperation,
   cancelLabel = 'Cancel',
   confirmLabel = 'Confirm',
   description,
@@ -34,12 +36,14 @@ export default function ConfirmationModal({
         <div className="flex flex-col-reverse gap-3 md:flex-row md:justify-end">
           <Button
             className="bg-gray-100 text-gray-700 hover:bg-gray-200"
+            disabled={asyncOperation}
             onClick={onClose}
           >
             {cancelLabel}
           </Button>
           <Button
             className="bg-red-500 text-white hover:bg-red-600"
+            disabled={asyncOperation}
             onClick={onConfirm}
           >
             {confirmLabel}

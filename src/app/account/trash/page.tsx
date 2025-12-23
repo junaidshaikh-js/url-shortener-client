@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import Container from '@/components/Container'
+import EmptyTrash from '@/components/pages/Trash/EmptyTrash'
 import getTrashLinks from '@/api/trashLinks'
 import Layout from '@/components/Layout'
 import Link from '@/components/Link'
@@ -63,6 +64,10 @@ export default async function TrashPage() {
             <div>
               <h1 className="h2">Trash</h1>
               {backToDashboard}
+            </div>
+            <div className="bg-info flex flex-col gap-4 rounded p-4 md:flex-row md:items-center md:justify-between">
+              <p>Items in trash will be deleted forever after 30 days</p>
+              <EmptyTrash />
             </div>
             <div className="flex w-full flex-col gap-4">
               {links?.map((link) => <TrashedLink key={link.id} link={link} />)}
