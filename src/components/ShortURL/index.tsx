@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from 'react'
 
 import shortenUrl from '@/api/shortenUrl'
-import { createSuccessToast } from '@/libs/utils'
+import { createSuccessToast, isValidUrl } from '@/libs/utils'
 import { useToast } from '@/context/Toast'
 import Button from '../Button'
 import ResponseBox from './ResponseBox'
@@ -26,8 +26,14 @@ export default function ShortUrl({ onSuccess }: ShortUrlProps) {
       }
     }
 
+    if (!isValidUrl(url)) {
+      inputRef.current?.focus()
+      return {
+        error: 'Invalid URL',
+      }
+    }
+
     try {
-      new URL(url)
       const shortenedUrl = await shortenUrl(url)
 
       if (shortenedUrl.error) {
@@ -43,9 +49,8 @@ export default function ShortUrl({ onSuccess }: ShortUrlProps) {
 
       return shortenedUrl
     } catch {
-      inputRef.current?.focus()
       return {
-        error: 'Invalid URL',
+        error: 'Something went wrong',
       }
     }
   }, null)
