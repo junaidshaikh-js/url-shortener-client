@@ -27,7 +27,7 @@ export default function Link({ link }: LinkProps) {
       </div>
       <div className="flex justify-between gap-5 md:flex-col md:items-end">
         <Copy shortUrl={shortUrl} />
-        <ActionButtons linkId={id} />
+        <ActionButtons link={link} />
       </div>
     </div>
   )

@@ -29,3 +29,14 @@ export function createErrorToast(message: string): TaskArg {
     message,
   }
 }
+
+export function isValidUrl(url: string) {
+  try {
+    const parsedUrl = new URL(url)
+    return (
+      parsedUrl.hostname === 'localhost' || parsedUrl.hostname.includes('.')
+    )
+  } catch {
+    return false
+  }
+}

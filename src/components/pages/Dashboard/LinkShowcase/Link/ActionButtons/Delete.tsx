@@ -33,7 +33,7 @@ export default function Delete({ linkId }: DeleteProps) {
   }
 
   return (
-    <Button onClick={handleDelete} title="Move to trash">
+    <Button onClick={handleDelete} title="Move to trash" className="p-1">
       <DeleteIcon size={20} />
     </Button>
   )
