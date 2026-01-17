@@ -42,9 +42,9 @@ export default function ToastProvider({
       const id = crypto.randomUUID()
 
       setToasts((prev) => {
-        const newToasts = [...prev, { ...toast, id }]
+        const newToasts = [{ ...toast, id }, ...prev]
         if (newToasts.length > 3) {
-          newToasts.shift()
+          newToasts.pop()
         }
         return newToasts
       })

@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { forwardRef } from 'react'
+import { motion } from 'motion/react'
 
 import { cn } from '@/libs/utils'
 import { useToast } from '@/context/Toast'
@@ -16,7 +17,10 @@ const toastVariants = {
   success: 'bg-success text-white',
 }
 
-export default function Toast({ type, message, id }: ToastProps) {
+export default forwardRef(function Toast(
+  { type, message, id }: ToastProps,
+  ref: React.Ref<HTMLDivElement>
+) {
   const { removeToast } = useToast()
 
   return (
@@ -25,6 +29,8 @@ export default function Toast({ type, message, id }: ToastProps) {
       exit={{ opacity: 0, x: '-100%' }}
       initial={{ opacity: 0, x: '-100%' }}
       key={id}
+      layout
+      ref={ref}
       transition={{ type: 'spring', damping: 20, stiffness: 250 }}
       className={cn(
         'flex items-center justify-between gap-2 rounded-lg p-2 font-medium',
@@ -41,4 +47,4 @@ export default function Toast({ type, message, id }: ToastProps) {
       </Button>
     </motion.div>
   )
-}
+})
