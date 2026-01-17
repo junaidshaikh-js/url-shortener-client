@@ -19,7 +19,7 @@ export default function ToastContainer() {
         aria-live="polite"
       >
         <div className="flex flex-col gap-3 px-4">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {toasts.map((toast) => {
               return <Toast key={toast.id} {...toast} />
             })}
