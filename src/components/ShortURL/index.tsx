@@ -66,9 +66,9 @@ export default function ShortUrl({ onSuccess }: ShortUrlProps) {
       <form className="flex flex-col gap-4 md:flex-row" action={submitAction}>
         <div className="grow">
           <TextInput
-            className="w-full placeholder:font-medium"
+            className="w-full"
+            label="Enter your really long URL..."
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Enter your really long URL..."
             ref={inputRef}
             value={url}
           />
