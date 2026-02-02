@@ -17,22 +17,32 @@ export default function TextInput({
   const id = useId()
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="relative">
+      <input
+        className={cn(
+          'peer block w-full rounded-lg border border-gray-200 bg-transparent p-3 text-sm focus:ring-0 focus:outline-none',
+          className
+        )}
+        id={id}
+        ref={ref}
+        type="text"
+        placeholder=" "
+        {...delegated}
+      />
       {label ? (
         <label
-          className={cn('font-medium text-gray-500', labelClassName)}
+          className={cn(
+            'text-primary absolute top-0 left-3 z-10 origin-[0] -translate-y-1/2 scale-75 bg-white px-1 text-sm duration-300 ease-out',
+            'peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:bg-transparent',
+            'peer-placeholder-shown:text-gray-500',
+            'peer-focus:text-primary peer-focus:top-0 peer-focus:-translate-y-1/2 peer-focus:scale-75 peer-focus:bg-white',
+            labelClassName
+          )}
           htmlFor={id}
         >
           {label}
         </label>
       ) : null}
-      <input
-        className={cn('rounded-lg border border-black p-3', className)}
-        id={id}
-        ref={ref}
-        type="text"
-        {...delegated}
-      />
     </div>
   )
 }

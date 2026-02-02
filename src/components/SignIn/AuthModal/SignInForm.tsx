@@ -68,9 +68,7 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
           className="w-full rounded border border-gray-300 p-2"
           disabled={isLoading}
           label="Email"
-          labelClassName="sr-only"
           onChange={(e) => updateFormData({ email: e.target.value })}
-          placeholder="Email"
           required
           type="email"
         />
@@ -79,10 +77,8 @@ export default function SignInForm({ updateView, setError }: SignInFormProps) {
           className="w-full rounded border border-gray-300 p-2"
           disabled={isLoading}
           label="Password"
-          labelClassName="sr-only"
           minLength={8}
           onChange={(e) => updateFormData({ password: e.target.value })}
-          placeholder="Password"
           required
           type="password"
         />
