@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Button from '@/components/Button'
 import fetchShortenerApi from '@/api/fetchShortenerApi'
 import Spinner from '@/components/Spinner'
+import PasswordInput from '@/components/form/PasswordInput'
 import TextInput from '@/components/form/TextInput'
 import useRouterWithTransition from '@/hooks/useRouterWithTransition'
 import { AUTH_TOKEN } from '@/constants'
@@ -82,7 +83,7 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
           required
           type="email"
         />
-        <TextInput
+        <PasswordInput
           autoComplete="new-password"
           className="w-full rounded border border-gray-300 p-2"
           disabled={isLoading}
@@ -90,7 +91,6 @@ export default function SignUpForm({ updateView, setError }: SignUpFormProps) {
           minLength={8}
           onChange={(e) => updateFormData({ password: e.target.value })}
           required
-          type="password"
         />
         <Button
           className="flex items-center justify-center gap-2 font-medium"

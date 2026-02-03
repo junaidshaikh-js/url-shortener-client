@@ -1,17 +1,19 @@
-import { JSX, useId } from 'react'
-
+import { JSX, ReactNode, useId } from 'react'
 import { cn } from '@/libs/utils'
 
 type TextInputProps = JSX.IntrinsicElements['input'] & {
+  icon?: ReactNode
   label?: string
   labelClassName?: string
 }
 
 export default function TextInput({
   className,
+  icon,
   label,
   labelClassName,
   ref,
+  type = 'text',
   ...delegated
 }: TextInputProps) {
   const id = useId()
@@ -21,11 +23,14 @@ export default function TextInput({
       <input
         className={cn(
           'peer block w-full rounded-lg border border-gray-200 bg-transparent p-3 text-sm focus:ring-0 focus:outline-none',
+          {
+            'pr-10': icon,
+          },
           className
         )}
         id={id}
         ref={ref}
-        type="text"
+        type={type}
         placeholder=" "
         {...delegated}
       />
@@ -43,6 +48,11 @@ export default function TextInput({
           {label}
         </label>
       ) : null}
+      {icon && (
+        <div className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500">
+          {icon}
+        </div>
+      )}
     </div>
   )
 }
